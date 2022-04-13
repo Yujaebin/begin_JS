@@ -1,0 +1,15 @@
+. 소수점끼리 게산은 힘들다 정수로 바꿔서 계산하자
+
+. 문자열 더하기 숫자는 숫자를 문자열로 전환, 뺴기 곱하기 나누기 크기비교(>,<)는 문자열을 숫자로 변환
+
+. NaN==NaN이 특이하게 false나옴 >= ,<= NaN과 크기 비교해도 false나옴 예외로 !=로 Nan과 비교하면 true나옴
+
+. 0, ,'', NaN, undefined, null은 !!(bool값으로 형변환)할시 false나옴 나머지는 다 true 
+
+. undefined는 false랑 다르다 == 하면 false, undefined==null true이지만 ===하면 false ,null은 타입이 object다(버그)
+
+. splice(x,y)x자리 찾고 y칸만큼 지우기, 앞에꺼 shift() unshift() / 뒤에꺼 pop() push()
+
+. include()포함여부 indexOf() 위치찾기 없으면 -1
+
+. return 값 여러개 하고 싶으면 배열로 묶자
