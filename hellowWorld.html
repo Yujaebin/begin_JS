@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+</head>
+<body>
+    <div><span id="order">1</span>번째 참가자</div>
+		<div>제시어: <span id="word"></span></div>
+		<input type="text">
+		<button>입력</button>
+
+
+		<script>
+			const $input=document.querySelector('input'); //body에 있는 input을 지목
+			const $button=document.querySelector('button'); //body에 있는 button 지목
+			const $word=document.querySelector('#word'); //body에 있는 id=word를 지목
+			const $order=document.querySelector('#order');
+			const number=parseInt(prompt("몇명이 참여하시나요?"));
+
+			let word;//제시어
+			let newWord//입력어
+
+			const onClick=()=>{
+				if (!word || word[word.length-1] === newWord[0]){ //제시어가 비어있으면 입력어가 제시어가 된다
+					word=newWord;
+					$word.textContent=word; //문자 값을 전달
+					
+
+					let order=parseInt($order.textContent);
+					if (order+1>number){
+						$order.textContent=1;
+					}
+					else{
+						$order.textContent=order+1;
+					}
+				}
+				else{ //제시어가 있으므로 입력어가 제시어에 끝말을 잇는지 확인
+					alert("옳바르지 않은 입력입니다");
+				}
+				$input.value = ''; //빈칸 비우기
+				$input.focus();
+			};
+			const onInput=(e)=>{
+				newWord=e.target.value;
+			}
+
+			document.querySelector('input').addEventListener('input',onInput);
+			document.querySelector('button').addEventListener('click',onClick);
+		</script>
+</body>
+</html>
