@@ -14,17 +14,19 @@
   const $form = document.querySelector('#form');
   const $logs = document.querySelector('#logs');
   const tries =[];
+  let out = 0;
 
-  const numbers =[];  //[1,2,3,4,5,6,7,8,9]
-  for (let n =0 ; n<9;n++){
-      numbers.push(n+1);
-  }
+  const numbers=Array(9).fill().map((el,idx)=>{ //[1,2,3,4,5,6,7,8,9]
+      return idx+1;
+  })
+
   const answer=[];  //정답 생성
   for(let n=0;n<4;n++){
       const index = Math.floor(Math.random()*numbers.length); // 0~8까지 랜덤 뽑기
+      answer.push(numbers[index]);
       numbers.splice(index,1);
   }
-
+  console.log(answer);
   function checkInput(input){
       if(input.length !==4 ){
           return alert("4자리수가 아닙니다");
@@ -46,9 +48,9 @@
         return;
       }
       // 입력검사 통과후
-      
       if (answer.join('')===value){  //.join() 배열을 문자열로 변환
         $logs.textContent= '홈런!'; //$logs 에 문자 추가하는 방법 1
+        return;
       }
       if(tries.length>10){
           const message =document.createTextNode(`ㅍㅐ배! 정답은 ${answer.join('')}`);
@@ -58,7 +60,7 @@
       let strike =0;
       let ball =0;
       for (let i=0 ; i< answer.length;i++){
-          const index = value.indexOf(answer[i]);
+          const index = value.indexOf(answer[i]); //.indexOf 특정값이 배열안에 있는지 확인 및 위치 표시(같은 값이 없으면 -1)
           if(index>-1){ //일치 숫자 발견
               if(index ===i){ //자리도 같음
                   strike += 1;
@@ -67,8 +69,30 @@
               }
           }
       }
-      $logs.append(`${value}: ${strike}스트라이크, ${ball}볼` ,document.createElement('br'));
-      tries.push(value) 
+    //   answer.forEach((element,i)=>{ //element:요소의값(answer) i:위치
+    //       const index = value.indexOf(element); //.indexOf 특정값이 배열안에 있는지 확인 및 위치 표시(같은 값이 없으면 -1)
+    //       if (index > -1) { //일치 숫자 발견
+    //           if (index === i) { //자리도 같음
+    //               strike += 1;
+    //           } else { // 자리는 다름 
+    //               ball += 1;
+    //           }
+    //       }
+    //   })
+      if (strike===0 && ball===0){
+        out++;
+        $logs.append(`${value}: ${out}아웃!`, document.createElement('br'));
+        }
+      else{
+        $logs.append(`${value}: ${strike}스트라이크, ${ball}볼`, document.createElement('br')); //$logs 에 문자 추가하는 방법 3
+        
+      }
+      tries.push(value); 
+      if(out===3){
+          const message = document.createTextNode(`ㅍㅐ배! 정답은 ${answer.join('')}`);
+          $logs.appendChild(message); //$logs 에 문자 추가하는 방법 2
+          return;
+      }
   });
 </script>
 </body>
