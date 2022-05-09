@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>로또추첨기</title>
+	<style>
+		.ball {
+			display: inline-block;
+			border: 1px solid black;
+			border-radius: 20px;
+			width: 40px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 20px;
+			text-align: center;
+			margin-right: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="result">추첨 결과는? </div>
+	<div id="bonus">보너스: </div>
+	<script>
+		const candidate=Array(45).fill().map((el,idx)=>idx+1);
+		const shuffle=[];
+		while(candidate.length>0){
+			const random= Math.floor(Math.random() * candidate.length); //랜덤수를 하나뽑기
+			const spliceArray= candidiate.splice(random,1); //랜덤수를 candidiate배열에서 뺴기
+			const value = spliceArray[0]; // 빼낸 랜덤수를 value배열에 넣기
+			shuffle.push(value); // suffle 배열에 랜덤수 넣기
+		}
+		const winBalls =shuffle.slice(0,6).sort((a,b)=> a-b);
+		const bonus = shuffle[6];
+	</script>
+</body>
