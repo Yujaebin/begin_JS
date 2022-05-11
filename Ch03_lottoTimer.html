@@ -6,7 +6,7 @@
 	<style>
 		.ball {
 			display: inline-block;
-			border: 1px solid rgb(255, 0, 0);
+			border: 1px solid rgb(0, 0, 0);
 			border-radius: 20px;
 			width: 40px;
 			height: 40px;
@@ -22,8 +22,11 @@
 	<div id="result">추첨 결과는? </div>
 	<div id="bonus">보너스: </div>
 	<script>
-		const candidate = Array(45).fill().map((el, idx) => idx + 1);
-		const shuffle = [];
+		const candidate = Array(45).fill().map((el, idx) => idx + 1); //공나열
+		const $result = document.querySelector('#result'); 
+		const $bonus=document.querySelector('#bonus');
+		const shuffle = []; //공섞은 배열
+
 		while (candidate.length > 0) {
 			const random = Math.floor(Math.random() * candidate.length); //랜덤수를 하나뽑기
 			const spliceArray = candidate.splice(random, 1); //랜덤수를 candidiate배열에서 뺴기
@@ -32,36 +35,38 @@
 		}
 		const winBalls = shuffle.slice(0, 6).sort((a, b) => a - b); //셔플한 배열 6개로 자르고 -> 숫자정리	*splice랑 slice랑은 다르다*
 																	//원래 sort는 원본을 정렬하지만 slice는 복사본을 생성함으로 sort하면 복사본을 sort함
-		const bonus = shuffle[6]; //보너스 공
+		
+		const bonus = shuffle[6]; //보너스 공 추가하기														
+		const paintColor=(number,$tag)=>{
+			if(number<10){
+				$tag.style.backgroundColor='red';
+			}
+			else if(number<20){
+				$tag.style.backgroundColor = 'blue';
+				$tag.style.color = 'white';
+			}
+			else if(number<30){
+				$tag.style.backgroundColor = 'yellow';
+			}
+			else if (number < 40) {
+				$tag.style.backgroundColor = 'green';
+				$tag.style.color = 'white';
+			}
 
-		const $result = document.querySelector('#result');
-		const $bonus=document.querySelector('#bonus');
-
-		const playLotto=(winBalls,$result)=>{
-			const $ball = document.createElement('div');
-			$ball.className = 'ball';
-			$ball.textContent = winBalls
-			$result.appendChild($ball);
 		}
-		setTimeout(()=>{
-			playLotto(winBalls[0],$result);
-		},1000);
-		setTimeout(()=>{
-			playLotto(winBalls[1], $result);
-		},2000);
-		setTimeout(()=>{
-			playLotto(winBalls[2], $result);
-		},3000);
-		setTimeout(()=>{
-			playLotto(winBalls[3], $result);
-		},4000);
-		setTimeout(()=>{
-			playLotto(winBalls[4], $result);
-		},5000);
-		setTimeout(()=>{
-			playLotto(winBalls[5], $result);
-		},6000);
-		setTimeout(()=>{
+		const playLotto=(array,$tag)=>{
+			const $ball = document.createElement('div'); //div생성
+			$ball.className = 'ball'; //div의 className을 ball로 지정
+			$ball.textContent = array //ball안에 추첨번호 삽입
+			paintColor(array,$ball);
+			$tag.appendChild($ball); //출력
+		}
+		for(let i=0;i<winBalls.length;i++){ //보너스공을 제외한 추첨번호 뽑기
+			setTimeout(() => {
+				playLotto(winBalls[i], $result);
+			}, (i+1)*1000);
+		}
+		setTimeout(()=>{ //보너스공 뽑기
 			playLotto(bonus, $bonus);
 		},7000);
 		
