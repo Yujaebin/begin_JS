@@ -80,7 +80,7 @@
         $result.value +=event.target.textContent;
     }
 
-    const onClickOperator=(op)=>()=>{
+    const onClickOperator=(op)=>()=>{ //고차함수
         if(numOne){
             operator=op;
             $operator.value = op;
