@@ -57,8 +57,9 @@
             scissors:1,
             paper:-1,
         };
-        let score=0;
         let message;
+        let user=0;
+        let computer=0;
         const clickButton=()=>{
             if(clickalbe){
                 clearInterval(intervalId);  //컴퓨터 선택 멈추게하기
@@ -69,20 +70,29 @@
             const Battle = myScore-computerScore; //숫자 서로 뺴기
             if (Battle ===2 || Battle==-1){         // ||(또는)을 너무 많이 사용하면 배열로 만들기 ['a','b','c','d']includes(Battle)
                 message="승리";
-                score+=1;
+                user+=1;
             }
             else if (Battle === -2 || Battle == 1) {
                 message = "패배";
-                score += -1;
+                computer+=1;
             }
             if (Battle ===0) {
                 message = "무승부";
             }
-            $score.textContent = `${message}, 점수=${score}점`;
-            setTimeout(()=>{    //컴퓨터 다시 선택 돌아가게 하기
-                clickalbe=true;
-                intervalId= setInterval(changeComputerHand,50);
-            },1000);
+            $score.textContent = `${message}, 내점수=${user}점 ,컴퓨터 점수=${computer}`;
+            if(user===2){
+                $score.textContent=`사용자 승리`;
+            }
+            else if(computer === 2) {
+                $score.textContent=`컴퓨터 승리`;
+            }
+            else{
+                setTimeout(()=>{    //컴퓨터 다시 선택 돌아가게 하기
+                    clearInterval(intervalId)
+                    clickalbe=true;
+                    intervalId= setInterval(changeComputerHand,50);
+                },1000);
+            }
         };
         $rock.addEventListener('click', clickButton);
         $scissors.addEventListener('click', clickButton);
