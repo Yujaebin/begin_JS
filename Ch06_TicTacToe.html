@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>틱택토</title>
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+
+		td {
+			border: 1px solid black;
+			width: 40px;
+			height: 40px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<script>
+		const data=[];
+		for(let i=0; i< 3; i++){
+			data.push([]);
+		}
+		const $table = document.createElement('table'); //table태그를 생성
+		for (let i=0;i<3;i++){
+			const $tr=(document.createElement('tr'));   //$table.append(document.createElement('tr'));로 하려다가 tr안에 td를 3개 넣어야되서 변수로 넣어만둠
+			for(let i=0;i<3;i++){
+				$tr.appendChild(document.createElement('td')); //td추가
+			}
+			$table.append($tr); //td 3개 넣었으니 table에 추가
+		}
+		document.body.append($table); //body에 table태그를 추가한다
+	</script>
+</body>
+
+</html>
