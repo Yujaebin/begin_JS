@@ -20,7 +20,7 @@
 
 <body>
 	<table>
-		<tr>
+		<!-- <tr>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -34,9 +34,10 @@
 			<td></td>
 			<td></td>
 			<td></td>
-		</tr>
+		</tr> -->
 	</table>
 	<script>
+		let turn='O';
 		const data=[];
 		for(let i=0; i< 3; i++){
 			data.push([]);
@@ -44,8 +45,19 @@
 		const $table = document.createElement('table'); //table태그를 생성
 		for (let i=0;i<3;i++){
 			const $tr=(document.createElement('tr'));   //$table.append(document.createElement('tr'));로 하려다가 tr안에 td를 3개 넣어야되서 변수로 넣어만둠
-			for(let i=0;i<3;i++){
-				$tr.appendChild(document.createElement('td')); //td추가
+			for(let j=0;j<3;j++){
+				const $td=document.createElement('td'); //td생성
+				$td.addEventListener('click',(event)=>{ // 각 칸 마다클릭시 이벤트 발생
+					if(!event.target.textContent){
+						event.target.textContent=`${turn}`; // event.target($td)에 O또는X추가
+						turn==='O'?turn='X':turn='O';
+						console.log(event.target.textContent);
+					}
+					else{
+						alert('이미 놓인자리 입니다!');
+					}
+				});
+				$tr.append($td) //$tr에 $td append하기
 			}
 			$table.append($tr); //td 3개 넣었으니 table에 추가
 		}
