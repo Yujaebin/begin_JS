@@ -99,6 +99,25 @@
 			}
 			else {
 				event.target.textContent = `${turn}`; // event.target($td)에 O또는X추가
+				turn === 'O' ? turn = 'X' : turn = 'O';
+				while (1) { //컴퓨터 차례
+					computerChoice = Math.floor(Math.random() * 3);
+					computerChoice2 = Math.floor(Math.random() * 3);
+					console.log('1');
+					if (!rows[computerChoice][computerChoice2].textContent) {
+						const computerPosition=rows[computerChoice][computerChoice2];
+						rows[computerChoice][computerChoice2].textContent = `${turn}`;
+						const ComputerWinner=checkWinner(computerPosition);
+						if(ComputerWinner){
+							$result.textContent=`컴퓨터님의 승리`;
+							$table.removeEventListener('click', callback);
+							break;
+						}
+						turn === 'O' ? turn = 'X' : turn = 'O';
+						console.log('2');
+						break;
+					}
+				}
 				if(checkWinner(event.target)){
 					$result.textContent=`${turn}님의 승리!`;
 					$table.removeEventListener('click',callback);
@@ -115,20 +134,7 @@
 				// });
 				if(hasDraw){
 					$result.textContent=`무승부`;
-				}
-				turn === 'O' ? turn = 'X' : turn = 'O';
-				while(1){ //컴퓨터 차례
-					computerChoice = Math.floor(Math.random() * 3);
-					computerChoice2 = Math.floor(Math.random() * 3);
-					console.log('1');
-					if(!rows[computerChoice][computerChoice2].textContent){
-						rows[computerChoice][computerChoice2].textContent=`${turn}`;
-						turn === 'O' ? turn = 'X' : turn = 'O';
-						console.log('2');
-						break;
-					}
-				}
-				
+				}				
 				console.log(event.target.textContent);
 			}
 
