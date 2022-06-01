@@ -105,7 +105,7 @@
 					return;
 				}
 				let hasDraw=true;
-				hasDraw=rows.flat().every((td)=>{td.textContent}); //flat()은 2차원을 1차원으로 변형, every()는 조건이 모두 true면 true값
+				hasDraw=rows.flat().every((cell)=>{cell.textContent}); //flat()은 2차원배열을 1차원으로 변형, every()는 조건이 모두 true면 true값, some()은 반대로 하나라도 true면 true값 
 				// rows.forEach((row)=>{
 				// 	row.forEach((cell)=>{
 				// 		if(!cell.textContent){
@@ -117,6 +117,18 @@
 					$result.textContent=`무승부`;
 				}
 				turn === 'O' ? turn = 'X' : turn = 'O';
+				while(1){ //컴퓨터 차례
+					computerChoice = Math.floor(Math.random() * 3);
+					computerChoice2 = Math.floor(Math.random() * 3);
+					console.log('1');
+					if(!rows[computerChoice][computerChoice2].textContent){
+						rows[computerChoice][computerChoice2].textContent=`${turn}`;
+						turn === 'O' ? turn = 'X' : turn = 'O';
+						console.log('2');
+						break;
+					}
+				}
+				
 				console.log(event.target.textContent);
 			}
 
